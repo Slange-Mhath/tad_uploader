@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS post;
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE image (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  contributor_id INTEGER,
+  title TEXT,
+  path TEXT NOT NULL,
+  rights_statement TEXT
+);

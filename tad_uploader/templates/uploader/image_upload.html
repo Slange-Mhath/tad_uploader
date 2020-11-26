@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">Bitch load dein Image Up</h1>
+<h2 class="subtitle">
+  Here you can upload your image
+</h2>
+    <section class="uploader">
+    <h1>Image Upload</h1>
+    <div class="uploader">
+    {{ dropzone.load_js() }}
+    {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here", redirect_url=url_for('uploader.image_uploader')) }}
+    {{ dropzone.create(action=url_for('uploader.image_uploader')) }}
+        </div>
+</section>
+    <section class="images">
+<div class="image-list">
+
+<div class="row">
+    {% for name in image_names %}
+        <div class="col-lg-4">
+        <picture>
+        <img class="image-preview rounded img-fluid img-thumbnail" src="{{ url_for('static', filename='uploads/images/' + name) }}">
+        </picture>
+        </div>
+        <div class="col-lg-6">
+        <ul>
+            <li>"Id: 29091996"</li>
+            <li>"Titel: Ein wunderschönes Bild"</li>
+            <li>"Image Rights: Das Bild ist nackt</li>
+        </ul>
+        </div>
+        <div class="col-lg-2">
+        <button type="button" class="close" aria-label="Close">
+            <a href="{{ url_for('uploader.delete_image', img_to_delete=name) }}">&times;</a>
+        </button>
+        </div>
+    {% endfor %}
+</div>
+
+</div>
+    <div class="button-list">
+    <a href="{{ url_for('uploader.csv_uploader') }}">Back to the CSV Upload</a>
+    <a href="{{ url_for('uploader.delete_latest_image') }}">Delete last Image</a>
+    <a href="{{ url_for('uploader.delete_all') }}">Delete all Images</a>
+    </div>
+</section>
+{% endblock %}

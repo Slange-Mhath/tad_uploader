@@ -1,0 +1,27 @@
+ {% extends "base.html" %}
+
+{% block content %}
+
+    <h1>CSV Upload</h1>
+    {{ dropzone.load_js() }}
+     {{ dropzone.config(allowed_file_custom ="true" ,allowed_file_type=".csv", default_message="Drop your CSV here", redirect_url=url_for('uploader.csv_uploader')) }}
+{{ dropzone.create(action=url_for('uploader.csv_uploader')) }}
+<div class="row">
+
+     {% for csv in csvs %}
+         <div class="col-lg-6">
+         <li>{{ csv }}</li>
+         </div>
+          <div class="col-lg-6">
+          <button type="button" class="close" aria-label="Close">
+            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}">&times;</a>
+          </button>
+          </div>
+    {% endfor %}
+</div>
+    <a href="{{ url_for('uploader.delete_latest_csv') }}">Delete last CSV</a>
+    <a href="{{ url_for('uploader.image_uploader') }}">Upload images</a>
+
+
+
+{% endblock %}
