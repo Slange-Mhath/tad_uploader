@@ -59,6 +59,8 @@ def delete_image(img_to_delete):
 @bp.route('/csv_uploader', methods=['GET', 'POST'])
 @login_required
 def csv_uploader():
+    images = []
+    image_infos = {}
     csvs = os.listdir('tad_uploader/static/uploads/csv')
     if request.method == 'POST':
         f = request.files.get('file')
@@ -66,9 +68,13 @@ def csv_uploader():
         with open('tad_uploader/static/uploads/csv/' + f.filename, newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                print(int(row['Contributor ID']), row['Title of Photo'], row['Rights Statement'])
+                image_infos.update({'Contributor ID': row['Contributor ID'],
+                                    'Title': row['Title of Photo'],
+                                    'Rights Statement': row['Rights Statement']})
+                images.append(image_infos)
+                print(images)
         # read csv and save it to model python csv reader with for loop -> create a new instance of model
-    return render_template('uploader/csv_upload.html', csvs=csvs)
+    return render_template('uploader/csv_upload.html', csvs=csvs, images=images)
 
 
 @bp.route('/delete_csv', methods=['GET', 'POST'])

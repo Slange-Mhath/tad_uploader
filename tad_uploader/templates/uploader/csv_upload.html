@@ -7,7 +7,6 @@
      {{ dropzone.config(allowed_file_custom ="true" ,allowed_file_type=".csv", default_message="Drop your CSV here", redirect_url=url_for('uploader.csv_uploader')) }}
 {{ dropzone.create(action=url_for('uploader.csv_uploader')) }}
 <div class="row">
-
      {% for csv in csvs %}
          <div class="col-lg-6">
          <li>{{ csv }}</li>
@@ -19,6 +18,11 @@
           </div>
     {% endfor %}
 </div>
+    {% for image in images %}
+         <div class="col-lg-6">
+         <li>{{ image }}</li>
+         </div>
+    {% endfor %}
     <a href="{{ url_for('uploader.delete_latest_csv') }}">Delete last CSV</a>
     <a href="{{ url_for('uploader.image_uploader') }}">Upload images</a>
 
