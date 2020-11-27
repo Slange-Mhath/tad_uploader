@@ -7,7 +7,7 @@ from flask import Blueprint, flash, g, redirect, render_template, request, url_f
 from werkzeug.exceptions import abort
 
 from tad_uploader.auth import login_required
-from tad_uploader.db import get_db
+
 
 bp = Blueprint('uploader', __name__)
 
@@ -60,7 +60,6 @@ def delete_image(img_to_delete):
 @login_required
 def csv_uploader():
     images = []
-    image_infos = {}
     csvs = os.listdir('tad_uploader/static/uploads/csv')
     if request.method == 'POST':
         f = request.files.get('file')
@@ -68,11 +67,11 @@ def csv_uploader():
         with open('tad_uploader/static/uploads/csv/' + f.filename, newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                image_infos.update({'Contributor ID': row['Contributor ID'],
+                images.append({'Contributor ID': row['Contributor ID'],
                                     'Title': row['Title of Photo'],
                                     'Rights Statement': row['Rights Statement']})
-                images.append(image_infos)
-                print(images)
+        print(images)
+
         # read csv and save it to model python csv reader with for loop -> create a new instance of model
     return render_template('uploader/csv_upload.html', csvs=csvs, images=images)
 

@@ -18,11 +18,7 @@
           </div>
     {% endfor %}
 </div>
-    {% for image in images %}
-         <div class="col-lg-6">
-         <li>{{ image }}</li>
-         </div>
-    {% endfor %}
+
     <a href="{{ url_for('uploader.delete_latest_csv') }}">Delete last CSV</a>
     <a href="{{ url_for('uploader.image_uploader') }}">Upload images</a>
 
