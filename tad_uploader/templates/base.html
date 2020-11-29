@@ -15,17 +15,20 @@
   </button>
     <div class="collapse navbar-collapse" id="navbarNav">
   <ul class="navbar-nav ml-auto">
-    {% if g.user %}
-        <li class="nav-item">{{ g.user['username'] }}</li>
+
          <li class="nav-item">
           <a class="nav-link" href="{{ url_for('uploader.index') }}">Home</a></li>
+      {% if current_user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('uploader.csv_uploader') }}">File Upload</a></li>
-      <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
-    {% else %}
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+      {% endif %}
+      {% if not current_user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.signup') }}">Register</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
+      {% endif %}
+    {% if current_user.is_authenticated %}
+   <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
     {% endif %}
   </ul>
     </div>

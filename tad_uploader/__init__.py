@@ -2,6 +2,8 @@ import os
 from flask import Flask
 from flask_dropzone import Dropzone
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+
 
 db = SQLAlchemy()
 
@@ -27,10 +29,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
 
     from . import auth
     app.register_blueprint(auth.bp)
@@ -39,6 +37,18 @@ def create_app(test_config=None):
     app.add_url_rule('/', endpoint='index')
     dropzone = Dropzone()
     dropzone.init_app(app)
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    from .models import User
+    @login_manager.user_loader
+    def load_user(user_id):
+        # since the user_id is just the primary key of our user table, use it in the query for the user
+        return User.query.get(int(user_id))
+
     db.init_app(app)
 
+
     return app
+
+
+app=create_app()
