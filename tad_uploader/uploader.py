@@ -3,6 +3,8 @@ from os import path
 import glob
 import csv
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from .models import Image
+from tad_uploader import db
 
 from werkzeug.exceptions import abort
 
@@ -21,10 +23,12 @@ def index():
 @login_required
 def image_uploader():
     image_names = os.listdir('tad_uploader/static/uploads/images')
+    images = Image.query.all()
     if request.method == 'POST':
         f = request.files.get('file')
         f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
-    return render_template('uploader/image_upload.html', image_names=image_names)
+
+    return render_template('uploader/image_upload.html', image_names=image_names, images=images)
 
 
 @bp.route('/delete_latest_image', methods=['GET', 'POST'])
@@ -67,6 +71,9 @@ def csv_uploader():
         with open('tad_uploader/static/uploads/csv/' + f.filename, newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
+                new_image = Image(contributor_id=int(row['Contributor ID']),title=row['Title of Photo'], rights=row['Rights Statement'])
+                db.session.add(new_image)
+                db.session.commit()
                 images.append({'Contributor ID': row['Contributor ID'],
                                     'Title': row['Title of Photo'],
                                     'Rights Statement': row['Rights Statement']})
@@ -93,3 +100,18 @@ def delete_latest_csv():
 def delete_csv(csv_to_delete):
     os.remove('tad_uploader/static/uploads/csv/' + csv_to_delete)
     return redirect(url_for('uploader.csv_uploader'))
+
+
+@bp.route('/all_images')
+def get_images():
+    images = Image.query.all()
+    # Image.query.get_or_404(id)
+    # .get_or_404
+    return render_template('view_images.html', images=images)
+
+
+''''
+@app.route('/identifier/<path:identifier>')
+def view_identifier(identifier):
+    obj = Identifier.query.get_or_404(identifier)
+'''''

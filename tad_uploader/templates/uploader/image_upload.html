@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">Bitch load dein Image Up</h1>
-<h2 class="subtitle">
-  Here you can upload your image
-</h2>
     <section class="uploader">
     <h1>Image Upload</h1>
+        <p style="text-align: center">Please upload your Image in the following format: <em> ID - Title </em> <br> e.g. <em>290996 - Santa playing banjo.jpg</em></p>
     <div class="uploader">
     {{ dropzone.load_js() }}
     {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here", redirect_url=url_for('uploader.image_uploader')) }}
@@ -25,9 +22,9 @@
         </div>
         <div class="col-lg-6">
         <ul>
-            <li>"Id: 29091996"</li>
-            <li>"Titel: Ein wunderschönes Bild"</li>
-            <li>"Image Rights: Das Bild ist nackt</li>
+            <li>"Id: 290996"</li>
+            <li>"Title: {{ name }}"</li>
+            <li>"Image Rights: All rights reserved"</li>
         </ul>
         </div>
         <div class="col-lg-2">
@@ -43,6 +40,7 @@
     <a href="{{ url_for('uploader.csv_uploader') }}">Back to the CSV Upload</a>
     <a href="{{ url_for('uploader.delete_latest_image') }}">Delete last Image</a>
     <a href="{{ url_for('uploader.delete_all') }}">Delete all Images</a>
+        <a href="{{ url_for('index') }}">Upload to ArchivesSpace</a>
     </div>
 </section>
 {% endblock %}
