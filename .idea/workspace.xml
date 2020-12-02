@@ -11,12 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tad_uploader/templates/view_images.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/csv_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/csv_upload.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/view_images.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/view_images.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +102,8 @@
       <workItem from="1606321241334" duration="6661000" />
       <workItem from="1606343691848" duration="16021000" />
       <workItem from="1606475431429" duration="66000" />
-      <workItem from="1606475535231" duration="22470000" />
+      <workItem from="1606475535231" duration="29009000" />
+      <workItem from="1606827248164" duration="10538000" />
     </task>
     <servers />
   </component>
@@ -121,6 +120,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="157" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606329010166">
@@ -139,36 +139,36 @@
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state x="578" y="247" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.941@0.23.1680.941" timestamp="1606485876707" />
-    <state width="1638" height="250" key="GridCell.Tab.0.bottom" timestamp="1606741924829">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1638" height="251" key="GridCell.Tab.0.bottom" timestamp="1606928698970">
+      <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1606740591444" />
-    <state width="1638" height="250" key="GridCell.Tab.0.bottom/0.23.1680.944@0.23.1680.944" timestamp="1606741924829" />
-    <state width="1638" height="252" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1606482068076" />
-    <state width="1638" height="255" key="GridCell.Tab.0.bottom/0.23.1680.949@0.23.1680.949" timestamp="1606390327288" />
-    <state width="1638" height="250" key="GridCell.Tab.0.center" timestamp="1606741924828">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1638" height="250" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1606819526880" />
+    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.944@0.23.1680.944" timestamp="1606914715905" />
+    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1606928698970" />
+    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.949@0.23.1680.949" timestamp="1606919812219" />
+    <state width="1638" height="251" key="GridCell.Tab.0.center" timestamp="1606928698969">
+      <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1606740591443" />
-    <state width="1638" height="250" key="GridCell.Tab.0.center/0.23.1680.944@0.23.1680.944" timestamp="1606741924828" />
-    <state width="1638" height="252" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1606482068075" />
-    <state width="1638" height="255" key="GridCell.Tab.0.center/0.23.1680.949@0.23.1680.949" timestamp="1606390327287" />
-    <state width="1638" height="250" key="GridCell.Tab.0.left" timestamp="1606741924828">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1638" height="250" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1606819526879" />
+    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.944@0.23.1680.944" timestamp="1606914715904" />
+    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1606928698969" />
+    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.949@0.23.1680.949" timestamp="1606919812218" />
+    <state width="1638" height="251" key="GridCell.Tab.0.left" timestamp="1606928698969">
+      <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1606740591442" />
-    <state width="1638" height="250" key="GridCell.Tab.0.left/0.23.1680.944@0.23.1680.944" timestamp="1606741924828" />
-    <state width="1638" height="252" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1606482068074" />
-    <state width="1638" height="255" key="GridCell.Tab.0.left/0.23.1680.949@0.23.1680.949" timestamp="1606390327286" />
-    <state width="1638" height="250" key="GridCell.Tab.0.right" timestamp="1606741924829">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1638" height="250" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1606819526879" />
+    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.944@0.23.1680.944" timestamp="1606914715903" />
+    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1606928698969" />
+    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.949@0.23.1680.949" timestamp="1606919812218" />
+    <state width="1638" height="251" key="GridCell.Tab.0.right" timestamp="1606928698970">
+      <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.right/0.23.1680.941@0.23.1680.941" timestamp="1606740591443" />
-    <state width="1638" height="250" key="GridCell.Tab.0.right/0.23.1680.944@0.23.1680.944" timestamp="1606741924829" />
-    <state width="1638" height="252" key="GridCell.Tab.0.right/0.23.1680.947@0.23.1680.947" timestamp="1606482068075" />
-    <state width="1638" height="255" key="GridCell.Tab.0.right/0.23.1680.949@0.23.1680.949" timestamp="1606390327287" />
+    <state width="1638" height="250" key="GridCell.Tab.0.right/0.23.1680.941@0.23.1680.941" timestamp="1606819526880" />
+    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.944@0.23.1680.944" timestamp="1606914715904" />
+    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.947@0.23.1680.947" timestamp="1606928698970" />
+    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.949@0.23.1680.949" timestamp="1606919812219" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1606741924814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1606928698963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

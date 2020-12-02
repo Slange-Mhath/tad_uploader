@@ -23,12 +23,18 @@ def index():
 @login_required
 def image_uploader():
     image_names = os.listdir('tad_uploader/static/uploads/images')
-    images = Image.query.all()
+    image_infos = []
+    if image_names:
+        for image in image_names:
+            image_id = image.split(" - ")[0]
+            image_info = Image.query.filter_by(contributor_id=image_id).first()
+            image_info.path = "uploads/images/" + image
+            db.session.commit()
+            image_infos.append(image_info)
     if request.method == 'POST':
         f = request.files.get('file')
         f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
-
-    return render_template('uploader/image_upload.html', image_names=image_names, images=images)
+    return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
 @bp.route('/delete_latest_image', methods=['GET', 'POST'])
@@ -53,10 +59,11 @@ def delete_all():
     return redirect(url_for('uploader.image_uploader'))
 
 
-@bp.route('/get/img/<img_to_delete>', methods=['GET', 'POST'])
+@bp.route('/get/static/<path:img_to_delete>', methods=['GET', 'POST'])
 @login_required
 def delete_image(img_to_delete):
-    os.remove('tad_uploader/static/uploads/images/' + img_to_delete)
+    os.remove('tad_uploader/static/' + img_to_delete) # here is der fehler
+    print(img_to_delete)
     return redirect(url_for('uploader.image_uploader'))
 
 
