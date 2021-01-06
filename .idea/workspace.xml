@@ -11,10 +11,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/flaskProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flaskProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/csv_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/csv_upload.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/view_images.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/view_images.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,9 +58,11 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/tad_uploader/static/bootstrap" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -103,7 +107,11 @@
       <workItem from="1606343691848" duration="16021000" />
       <workItem from="1606475431429" duration="66000" />
       <workItem from="1606475535231" duration="29009000" />
-      <workItem from="1606827248164" duration="10538000" />
+      <workItem from="1606827248164" duration="12692000" />
+      <workItem from="1607082936904" duration="557000" />
+      <workItem from="1607088059345" duration="1566000" />
+      <workItem from="1609937262215" duration="572000" />
+      <workItem from="1609938748378" duration="9405000" />
     </task>
     <servers />
   </component>
@@ -122,53 +130,7 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="304" y="157" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606329010166">
-      <screen x="0" y="23" width="1680" height="944" />
-    </state>
-    <state x="304" y="157" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.944@0.23.1680.944" timestamp="1606329010166" />
-    <state x="537" y="302" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606487621616">
-      <screen x="0" y="23" width="1680" height="941" />
-    </state>
-    <state x="537" y="302" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.941@0.23.1680.941" timestamp="1606487621616" />
-    <state x="528" y="239" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1606475449123">
-      <screen x="0" y="23" width="1680" height="947" />
-    </state>
-    <state x="528" y="239" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1680.947@0.23.1680.947" timestamp="1606475449123" />
-    <state x="578" y="247" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606485876707">
-      <screen x="0" y="23" width="1680" height="941" />
-    </state>
-    <state x="578" y="247" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.941@0.23.1680.941" timestamp="1606485876707" />
-    <state width="1638" height="251" key="GridCell.Tab.0.bottom" timestamp="1606928698970">
-      <screen x="0" y="23" width="1680" height="947" />
-    </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1606819526880" />
-    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.944@0.23.1680.944" timestamp="1606914715905" />
-    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1606928698970" />
-    <state width="1638" height="251" key="GridCell.Tab.0.bottom/0.23.1680.949@0.23.1680.949" timestamp="1606919812219" />
-    <state width="1638" height="251" key="GridCell.Tab.0.center" timestamp="1606928698969">
-      <screen x="0" y="23" width="1680" height="947" />
-    </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1606819526879" />
-    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.944@0.23.1680.944" timestamp="1606914715904" />
-    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1606928698969" />
-    <state width="1638" height="251" key="GridCell.Tab.0.center/0.23.1680.949@0.23.1680.949" timestamp="1606919812218" />
-    <state width="1638" height="251" key="GridCell.Tab.0.left" timestamp="1606928698969">
-      <screen x="0" y="23" width="1680" height="947" />
-    </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1606819526879" />
-    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.944@0.23.1680.944" timestamp="1606914715903" />
-    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1606928698969" />
-    <state width="1638" height="251" key="GridCell.Tab.0.left/0.23.1680.949@0.23.1680.949" timestamp="1606919812218" />
-    <state width="1638" height="251" key="GridCell.Tab.0.right" timestamp="1606928698970">
-      <screen x="0" y="23" width="1680" height="947" />
-    </state>
-    <state width="1638" height="250" key="GridCell.Tab.0.right/0.23.1680.941@0.23.1680.941" timestamp="1606819526880" />
-    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.944@0.23.1680.944" timestamp="1606914715904" />
-    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.947@0.23.1680.947" timestamp="1606928698970" />
-    <state width="1638" height="251" key="GridCell.Tab.0.right/0.23.1680.949@0.23.1680.949" timestamp="1606919812219" />
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1606928698963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1609966896243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

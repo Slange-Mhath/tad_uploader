@@ -28,6 +28,7 @@ def image_uploader():
         for image in image_names:
             image_id = image.split(" - ")[0]
             image_info = Image.query.filter_by(contributor_id=image_id).first()
+            print(image_info)
             image_info.path = "uploads/images/" + image
             db.session.commit()
             image_infos.append(image_info)
@@ -51,19 +52,31 @@ def delete_latest_image():
 @login_required
 def delete_all():
     list_of_files = glob.glob('tad_uploader/static/uploads/images/*')
-    if os.listdir('static/uploads/images'):
+    if os.listdir('tad_uploader/static/uploads/images'):
         for f in list_of_files:
             os.remove(f)
     else:
         print("Directory is empty")
+    db.session.query(Image).delete()
+    db.session.commit()
     return redirect(url_for('uploader.image_uploader'))
 
 
 @bp.route('/get/static/<path:img_to_delete>', methods=['GET', 'POST'])
 @login_required
 def delete_image(img_to_delete):
-    os.remove('tad_uploader/static/' + img_to_delete) # here is der fehler
-    print(img_to_delete)
+    # delete file from database
+    '''
+    # outcommented cause makes no sense in this context. Deleting the db entry would cause problems in image_uploader
+    query by contributer_id since the image info would be deleted. To fix this we would have to call the csv_uploader
+    after each delete -> would not make sense. Better approach is to just delete the image from the folder -> check before
+    sending to ArchivesSpace if the image has the info AND is in the folder and delete everything from db after an upload.
+
+    image_id = img_to_delete.split(" - ")[0].rsplit('/', 1)[-1]
+    Image.query.filter_by(contributor_id=image_id).delete()
+    db.session.commit()
+    '''
+    os.remove('tad_uploader/static/' + img_to_delete)
     return redirect(url_for('uploader.image_uploader'))
 
 
@@ -105,6 +118,11 @@ def delete_latest_csv():
 @bp.route('/get/csv/<csv_to_delete>', methods=['GET', 'POST'])
 @login_required
 def delete_csv(csv_to_delete):
+    with open('tad_uploader/static/uploads/csv/' + csv_to_delete, newline='', encoding='utf-8-sig') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            Image.query.filter_by(contributor_id=int(row['Contributor ID'])).delete()
+            db.session.commit()
     os.remove('tad_uploader/static/uploads/csv/' + csv_to_delete)
     return redirect(url_for('uploader.csv_uploader'))
 
