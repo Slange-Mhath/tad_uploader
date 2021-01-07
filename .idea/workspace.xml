@@ -11,11 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/flaskProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flaskProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/csv_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/csv_upload.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
     </list>
@@ -111,7 +108,7 @@
       <workItem from="1607082936904" duration="557000" />
       <workItem from="1607088059345" duration="1566000" />
       <workItem from="1609937262215" duration="572000" />
-      <workItem from="1609938748378" duration="9405000" />
+      <workItem from="1609938748378" duration="13024000" />
     </task>
     <servers />
   </component>
@@ -131,6 +128,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1609966896243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1610048048013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

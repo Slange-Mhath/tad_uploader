@@ -2,6 +2,7 @@ import os
 from os import path
 import glob
 import csv
+import requests
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 from .models import Image
 from tad_uploader import db
@@ -140,3 +141,76 @@ def get_images():
 def view_identifier(identifier):
     obj = Identifier.query.get_or_404(identifier)
 '''''
+
+
+# starting with the upload
+
+# DSPACE Credentials
+
+api_base_url = "http://test.digitalpreservation.is.ed.ac.uk/"
+endpoint_path = "/rest/login"
+endpoint = "{}{}".format(api_base_url, endpoint_path)
+ds_collection = "377e93ba-c66f-46a1-930b-553323f98398"
+ds_user = "xxxx"
+ds_password = "xxxx"
+
+login_data = {
+    "email": ds_user,
+    "password": ds_password
+}
+
+headers = {
+    'Content-Type': 'application/json', 'Accept': 'application/json'
+}
+
+
+# Login to ArchivesSpace and return SessionID
+
+as_base_url = "http://lac-archives-test.is.ed.ac.uk"
+as_user = "xxxx"
+as_password = "xxxx"
+as_archival_repo = "2"
+as_url_port = "8089"
+
+
+def login_to_dspace():
+    response = requests.post(endpoint, data=login_data)
+    set_cookie = response.headers["Set-Cookie"].split(";")[0]
+    session_id = set_cookie[set_cookie.find("=") + 1:]
+    return session_id
+
+
+def as_login():
+    files = {
+        'password': (None, as_password),
+    }
+    response = requests.post(f"{as_base_url}:{as_url_port}/users/{as_user}/login", files=files)
+    return response.json()['session']
+
+
+def format_metadata(key, value, lang="en"):
+    """Reformats the metadata for the REST API."""
+    return {'key': key, 'value': value, 'language': lang}
+
+
+
+
+
+@bp.route('/upload_to_as', methods=['GET', 'POST'])
+@login_required
+def upload_to_as():
+    images = Image.query.all()
+    print(len(images))
+    for image in images:
+        if image.title and image.contributor_id and image.rights and image.path:
+            image_formatted = [format_metadata("dc.identifier", image.contributor_id),
+                               format_metadata("dc.title", image.title),
+                               format_metadata("dc.rights", image.rights)
+                               ]
+            print(image_formatted)
+        # check if path and all informations are there
+        # then upload
+        # lol
+
+    # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
+    return redirect(url_for('uploader.csv_uploader'))
