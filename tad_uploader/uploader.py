@@ -1,6 +1,7 @@
 import os
 from os import path
 import glob
+import json
 import csv
 import requests
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
@@ -150,9 +151,9 @@ def view_identifier(identifier):
 api_base_url = "http://test.digitalpreservation.is.ed.ac.uk/"
 endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
-ds_collection = "377e93ba-c66f-46a1-930b-553323f98398"
-ds_user = "xxxx"
-ds_password = "xxxx"
+ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
+ds_user = "slange@exseed.ed.ac.uk"
+ds_password = "xxx"
 
 login_data = {
     "email": ds_user,
@@ -167,9 +168,9 @@ headers = {
 # Login to ArchivesSpace and return SessionID
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
-as_user = "xxxx"
-as_password = "xxxx"
-as_archival_repo = "2"
+as_user = "admin"
+as_password = "xxx"
+as_archival_repo = "18"
 as_url_port = "8089"
 
 
@@ -177,6 +178,7 @@ def login_to_dspace():
     response = requests.post(endpoint, data=login_data)
     set_cookie = response.headers["Set-Cookie"].split(";")[0]
     session_id = set_cookie[set_cookie.find("=") + 1:]
+    print(session_id)
     return session_id
 
 
@@ -185,6 +187,7 @@ def as_login():
         'password': (None, as_password),
     }
     response = requests.post(f"{as_base_url}:{as_url_port}/users/{as_user}/login", files=files)
+    print(response.json()['session'])
     return response.json()['session']
 
 
@@ -193,14 +196,61 @@ def format_metadata(key, value, lang="en"):
     return {'key': key, 'value': value, 'language': lang}
 
 
+def create_dspace_record(metadata, ds_collection, session_id):
+    item = {"type": "item", "metadata": metadata} #
+    collection_url = "{}/rest/collections/{}/items".format(api_base_url, ds_collection)
+    response = requests.post(collection_url,
+                             cookies={"JSESSIONID": session_id},
+                             data=json.dumps(item),
+                             headers=headers
+                             )
+    response.raise_for_status()
+    response_object = response.json()
+    print(f'this is the response object {response_object}')
+    return response_object
 
+
+# Uploads the image into the DSPACE object
+def upload_image(ds_object_link, image_to_upload, ds_object_tag):
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    with open("tad_uploader/static/"+image_to_upload, 'rb') as content:
+        ds_object_tag = str(ds_object_tag) + ".jpg"
+        print(ds_object_tag)
+        requests.post("{}/{}/bitstreams?name={}".format(api_base_url,ds_object_link,ds_object_tag),
+                                  data=content,
+                                  headers=headers,
+                                  cookies={"JSESSIONID": login_to_dspace()})
+        print(f"image with the id: {ds_object_tag} successfully uploaded")
+
+
+def get_as_agent(as_base_url, as_url_port, as_session_id, agent_id): #use image_id as agent_id as they are the same
+    link_to_agent = f'{as_base_url}:{as_url_port}/agents/people/{agent_id}'
+    as_headers = {
+        'X-ArchivesSpace-Session': as_session_id
+    }
+    response = requests.get(link_to_agent, as_headers)
+    as_agent = response.json()
+    return as_agent
+
+
+def update_as_agent(as_base_url, as_url_port, as_session_id, agent_id, as_agent, link_to_image, rights_statement):
+    link_to_agent = f'{as_base_url}:{as_url_port}/agents/people/{agent_id}'
+    as_headers = {
+        'X-ArchivesSpace-Session': as_session_id
+    }
+    as_agent['notes'][0]['label'] = "Image"
+    as_agent['notes'][0]['subnotes'][0]['content'] = "<img src='{}.jpg'/>".format(link_to_image)
+    as_agent['notes'].append({'jsonmodel_type': 'note_bioghist', 'label': 'Image Rights', 'publish':False, 'subnotes': [{'content': rights_statement, 'jsonmodel_type': 'note_text', 'publish': False}]})
+    response = requests.post(link_to_agent, headers=as_headers, data=json.dumps(as_agent))
+    print(response.status_code)
 
 
 @bp.route('/upload_to_as', methods=['GET', 'POST'])
 @login_required
 def upload_to_as():
+    ds_session_id = login_to_dspace()
+    as_session_id = as_login()
     images = Image.query.all()
-    print(len(images))
     for image in images:
         if image.title and image.contributor_id and image.rights and image.path:
             image_formatted = [format_metadata("dc.identifier", image.contributor_id),
@@ -208,9 +258,16 @@ def upload_to_as():
                                format_metadata("dc.rights", image.rights)
                                ]
             print(image_formatted)
-        # check if path and all informations are there
-        # then upload
-        # lol
-
+            ds_object = create_dspace_record(image_formatted, ds_collection, ds_session_id)
+            upload_image(ds_object['link'], image.path, image.contributor_id)
+            link_to_image = "{}/bitstream/handle/{}/{}".format(api_base_url, ds_object['handle'], image.contributor_id)
+            as_agent = get_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id)
+            if "notes" in as_agent and as_agent['notes']:
+                update_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id, as_agent, link_to_image,
+                                image.rights)
+                print(
+                    f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
+            else:
+                print(f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
     return redirect(url_for('uploader.csv_uploader'))
