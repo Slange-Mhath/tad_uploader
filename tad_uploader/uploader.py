@@ -53,15 +53,22 @@ def delete_latest_image():
 @bp.route('/delete_all', methods=['GET', 'POST'])
 @login_required
 def delete_all():
-    list_of_files = glob.glob('tad_uploader/static/uploads/images/*')
+    list_of_csvs = glob.glob('tad_uploader/static/uploads/csv/*')
+    if os.listdir('tad_uploader/static/uploads/csv'):
+        for f in list_of_csvs:
+            os.remove(f)
+    else:
+        print("Directory is empty")
+    list_of_images = glob.glob('tad_uploader/static/uploads/images/*')
     if os.listdir('tad_uploader/static/uploads/images'):
-        for f in list_of_files:
+        for f in list_of_images:
             os.remove(f)
     else:
         print("Directory is empty")
     db.session.query(Image).delete()
     db.session.commit()
-    return redirect(url_for('uploader.image_uploader'))
+    print("The database has been cleared")
+    return redirect(url_for('uploader.csv_uploader'))
 
 
 @bp.route('/get/static/<path:img_to_delete>', methods=['GET', 'POST'])
@@ -267,6 +274,7 @@ def upload_to_as():
                                 image.rights)
                 print(
                     f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
+                delete_all()
             else:
                 print(f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
