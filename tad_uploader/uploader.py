@@ -92,6 +92,7 @@ def delete_image(img_to_delete):
 @bp.route('/csv_uploader', methods=['GET', 'POST'])
 @login_required
 def csv_uploader():
+    error = "No error"
     images = []
     csvs = os.listdir('tad_uploader/static/uploads/csv')
     if request.method == 'POST':
@@ -100,16 +101,19 @@ def csv_uploader():
         with open('tad_uploader/static/uploads/csv/' + f.filename, newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                new_image = Image(contributor_id=int(row['Contributor ID']),title=row['Title of Photo'], rights=row['Rights Statement'])
-                db.session.add(new_image)
-                db.session.commit()
-                images.append({'Contributor ID': row['Contributor ID'],
-                                    'Title': row['Title of Photo'],
-                                    'Rights Statement': row['Rights Statement']})
-        print(images)
+                if "Contributor ID" and "Title of Photo" and "Rights Statement" in row:
+                    new_image = Image(contributor_id=int(row['Contributor ID']), title=row['Title of Photo'], rights=row['Rights Statement'])
+                    db.session.add(new_image)
+                    db.session.commit()
+                    images.append({'Contributor ID': row['Contributor ID'],
+                                        'Title': row['Title of Photo'],
+                                        'Rights Statement': row['Rights Statement']})
+                else:
+                    error = "The CSV is not well formed, please add the rows 'Contributor ID', 'Title of Photo' and 'Rights Statement'"
+        print(error)
 
         # read csv and save it to model python csv reader with for loop -> create a new instance of model
-    return render_template('uploader/csv_upload.html', csvs=csvs, images=images)
+    return render_template('uploader/csv_upload.html', csvs=csvs, images=images, error=error)
 
 
 @bp.route('/delete_csv', methods=['GET', 'POST'])

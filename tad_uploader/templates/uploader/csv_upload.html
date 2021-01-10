@@ -2,6 +2,9 @@
 
 
     <h1>CSV Upload</h1>
+
+    <p class=error><strong>Error:</strong> {{ error }}
+
             <p style="text-align: center">Please upload your CSV with the following rows: <em>Contributor ID, Title of Photo, Rights Statement</em> <br> e.g. <br> <em>Contributor ID: 290996 <br> Title of Photo: Santa playing banjo <br>Rights Statement: All rights reserved</em></p>
 
     {{ dropzone.load_js() }}
