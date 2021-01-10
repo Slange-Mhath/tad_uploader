@@ -274,8 +274,9 @@ def upload_to_as():
                                 image.rights)
                 print(
                     f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
-                delete_all()
             else:
                 print(f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
+    # clear db after succesfull upload
+    delete_all()
     return redirect(url_for('uploader.csv_uploader'))

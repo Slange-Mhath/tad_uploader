@@ -1,6 +1,5 @@
- {% extends "base.html" %}
+ {% include "base.html" %}
 
-{% block content %}
 
     <h1>CSV Upload</h1>
             <p style="text-align: center">Please upload your CSV with the following rows: <em>Contributor ID, Title of Photo, Rights Statement</em> <br> e.g. <br> <em>Contributor ID: 290996 <br> Title of Photo: Santa playing banjo <br>Rights Statement: All rights reserved</em></p>
@@ -23,8 +22,12 @@
 
     <!--<a href="{{ url_for('uploader.delete_latest_csv') }}">Delete last CSV</a>-->
     <a href="{{ url_for('uploader.delete_all') }}">Delete all</a>
-    <a href="{{ url_for('uploader.image_uploader') }}">Upload images</a>
 
-
+{% block content %}
+    {% if not csvs %}
+        <p class=error><strong>Please upload a CSV</strong></p>
+    {% else %}
+        <a href="{{ url_for('uploader.image_uploader') }}">Upload images</a>
+    {% endif %}
 
 {% endblock %}

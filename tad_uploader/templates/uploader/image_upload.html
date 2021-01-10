@@ -39,7 +39,11 @@
     <a href="{{ url_for('uploader.csv_uploader') }}">Back to the CSV Upload</a>
     <!--<a href="{{ url_for('uploader.delete_latest_image') }}">Delete last Image</a>-->
     <a href="{{ url_for('uploader.delete_all') }}">Delete all</a>
-        <a href="{{ url_for('uploader.upload_to_as') }}">Upload to ArchivesSpace</a>
+    {% if not image_names %}
+        <p class=error><strong>Please upload at least one image</strong>
+    {% else %}
+       <a href="{{ url_for('uploader.upload_to_as') }}">Upload to ArchivesSpace</a>
+    {% endif %}
     </div>
 </section>
 {% endblock %}
