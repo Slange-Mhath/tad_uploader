@@ -92,16 +92,17 @@ def delete_image(img_to_delete):
 @bp.route('/csv_uploader', methods=['GET', 'POST'])
 @login_required
 def csv_uploader():
-    error = "No error"
+    print("again")
     images = []
     csvs = os.listdir('tad_uploader/static/uploads/csv')
     if request.method == 'POST':
+        error = None
         f = request.files.get('file')
         f.save(os.path.join('tad_uploader/static/uploads/csv', f.filename))
         with open('tad_uploader/static/uploads/csv/' + f.filename, newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if "Contributor ID" and "Title of Photo" and "Rights Statement" in row:
+                if "Contributor ID" in row and "Title of Photo" in row and "Rights Statement" in row:
                     new_image = Image(contributor_id=int(row['Contributor ID']), title=row['Title of Photo'], rights=row['Rights Statement'])
                     db.session.add(new_image)
                     db.session.commit()
@@ -109,11 +110,12 @@ def csv_uploader():
                                         'Title': row['Title of Photo'],
                                         'Rights Statement': row['Rights Statement']})
                 else:
-                    error = "The CSV is not well formed, please add the rows 'Contributor ID', 'Title of Photo' and 'Rights Statement'"
-        print(error)
+                    print('errormessage')
+                    return 'Error', 400
+
 
         # read csv and save it to model python csv reader with for loop -> create a new instance of model
-    return render_template('uploader/csv_upload.html', csvs=csvs, images=images, error=error)
+    return render_template('uploader/csv_upload.html', csvs=csvs, images=images)
 
 
 @bp.route('/delete_csv', methods=['GET', 'POST'])
