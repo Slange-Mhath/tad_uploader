@@ -39,7 +39,7 @@ def image_uploader():
             f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
         else:
 
-            return 'error', 500
+            return f" Your image name '{f.filename}' contains no ID. Please name your 'image id - title of image'", 500
     return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
