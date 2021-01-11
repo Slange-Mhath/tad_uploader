@@ -12,7 +12,6 @@ from werkzeug.exceptions import abort
 
 from tad_uploader.auth import login_required
 
-
 bp = Blueprint('uploader', __name__)
 
 
@@ -36,7 +35,11 @@ def image_uploader():
             image_infos.append(image_info)
     if request.method == 'POST':
         f = request.files.get('file')
-        f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
+        if f.filename.split(" - ")[0].isdigit():
+            f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
+        else:
+
+            return 'error', 500
     return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
@@ -44,7 +47,8 @@ def image_uploader():
 @login_required
 def delete_latest_image():
     if os.listdir('static/uploads/images/'):
-        list_of_files = glob.glob('tad_uploader/static/uploads/images/*')  # * means all if need specific format then *.csv
+        list_of_files = glob.glob(
+            'tad_uploader/static/uploads/images/*')  # * means all if need specific format then *.csv
         latest_file = max(list_of_files, key=os.path.getctime)
         os.remove(latest_file)
     return redirect(url_for('uploader.image_uploader'))
@@ -92,28 +96,29 @@ def delete_image(img_to_delete):
 @bp.route('/csv_uploader', methods=['GET', 'POST'])
 @login_required
 def csv_uploader():
-    print("again")
     images = []
     csvs = os.listdir('tad_uploader/static/uploads/csv')
     if request.method == 'POST':
-        error = None
         f = request.files.get('file')
         f.save(os.path.join('tad_uploader/static/uploads/csv', f.filename))
         with open('tad_uploader/static/uploads/csv/' + f.filename, newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if "Contributor ID" in row and "Title of Photo" in row and "Rights Statement" in row:
-                    new_image = Image(contributor_id=int(row['Contributor ID']), title=row['Title of Photo'], rights=row['Rights Statement'])
+                    new_image = Image(contributor_id=int(row['Contributor ID']), title=row['Title of Photo'],
+                                      rights=row['Rights Statement'])
                     db.session.add(new_image)
                     db.session.commit()
                     images.append({'Contributor ID': row['Contributor ID'],
-                                        'Title': row['Title of Photo'],
-                                        'Rights Statement': row['Rights Statement']})
+                                   'Title': row['Title of Photo'],
+                                   'Rights Statement': row['Rights Statement']})
                 else:
-                    print('errormessage')
-                    return 'Error', 400
-
-
+                    list_of_files = glob.glob(
+                        'tad_uploader/static/uploads/csv/*')  # * means all if need specific format then *.csv
+                    latest_file = max(list_of_files, key=os.path.getctime)
+                    os.remove(latest_file)
+                    return 'The CSV does not have one or more of the required rows: Contributor ID, ' \
+                           'Title of Photo, Rights Statement', 400
         # read csv and save it to model python csv reader with for loop -> create a new instance of model
     return render_template('uploader/csv_upload.html', csvs=csvs, images=images)
 
@@ -156,7 +161,6 @@ def view_identifier(identifier):
     obj = Identifier.query.get_or_404(identifier)
 '''''
 
-
 # starting with the upload
 
 # DSPACE Credentials
@@ -166,7 +170,7 @@ endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
 ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "xxx"
+ds_password = "d1gitalpr3servation!"
 
 login_data = {
     "email": ds_user,
@@ -177,12 +181,11 @@ headers = {
     'Content-Type': 'application/json', 'Accept': 'application/json'
 }
 
-
 # Login to ArchivesSpace and return SessionID
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "xxx"
+as_password = "t0tt3nh@m"
 as_archival_repo = "18"
 as_url_port = "8089"
 
@@ -210,7 +213,7 @@ def format_metadata(key, value, lang="en"):
 
 
 def create_dspace_record(metadata, ds_collection, session_id):
-    item = {"type": "item", "metadata": metadata} #
+    item = {"type": "item", "metadata": metadata}  #
     collection_url = "{}/rest/collections/{}/items".format(api_base_url, ds_collection)
     response = requests.post(collection_url,
                              cookies={"JSESSIONID": session_id},
@@ -226,17 +229,17 @@ def create_dspace_record(metadata, ds_collection, session_id):
 # Uploads the image into the DSPACE object
 def upload_image(ds_object_link, image_to_upload, ds_object_tag):
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    with open("tad_uploader/static/"+image_to_upload, 'rb') as content:
+    with open("tad_uploader/static/" + image_to_upload, 'rb') as content:
         ds_object_tag = str(ds_object_tag) + ".jpg"
         print(ds_object_tag)
-        requests.post("{}/{}/bitstreams?name={}".format(api_base_url,ds_object_link,ds_object_tag),
-                                  data=content,
-                                  headers=headers,
-                                  cookies={"JSESSIONID": login_to_dspace()})
+        requests.post("{}/{}/bitstreams?name={}".format(api_base_url, ds_object_link, ds_object_tag),
+                      data=content,
+                      headers=headers,
+                      cookies={"JSESSIONID": login_to_dspace()})
         print(f"image with the id: {ds_object_tag} successfully uploaded")
 
 
-def get_as_agent(as_base_url, as_url_port, as_session_id, agent_id): #use image_id as agent_id as they are the same
+def get_as_agent(as_base_url, as_url_port, as_session_id, agent_id):  # use image_id as agent_id as they are the same
     link_to_agent = f'{as_base_url}:{as_url_port}/agents/people/{agent_id}'
     as_headers = {
         'X-ArchivesSpace-Session': as_session_id
@@ -253,7 +256,9 @@ def update_as_agent(as_base_url, as_url_port, as_session_id, agent_id, as_agent,
     }
     as_agent['notes'][0]['label'] = "Image"
     as_agent['notes'][0]['subnotes'][0]['content'] = "<img src='{}.jpg'/>".format(link_to_image)
-    as_agent['notes'].append({'jsonmodel_type': 'note_bioghist', 'label': 'Image Rights', 'publish':False, 'subnotes': [{'content': rights_statement, 'jsonmodel_type': 'note_text', 'publish': False}]})
+    as_agent['notes'].append({'jsonmodel_type': 'note_bioghist', 'label': 'Image Rights', 'publish': False,
+                              'subnotes': [
+                                  {'content': rights_statement, 'jsonmodel_type': 'note_text', 'publish': False}]})
     response = requests.post(link_to_agent, headers=as_headers, data=json.dumps(as_agent))
     print(response.status_code)
 
@@ -281,7 +286,8 @@ def upload_to_as():
                 print(
                     f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
             else:
-                print(f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
+                print(
+                    f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
     # clear db after succesfull upload
     delete_all()

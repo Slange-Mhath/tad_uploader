@@ -6,7 +6,7 @@
         <p style="text-align: center">Please upload your Image in the following format: <em> ID - Title </em> <br> e.g. <em>290996 - Santa playing banjo.jpg</em></p>
     <div class="uploader">
     {{ dropzone.load_js() }}
-    {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here", redirect_url=url_for('uploader.image_uploader')) }}
+    {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here") }}
     {{ dropzone.create(action=url_for('uploader.image_uploader')) }}
         </div>
 </section>
@@ -36,7 +36,8 @@
 
 </div>
     <div class="button-list">
-    <a href="{{ url_for('uploader.csv_uploader') }}">Back to the CSV Upload</a>
+    <a href="{{ url_for('uploader.csv_uploader') }}">Back</a>
+    <a href="{{ url_for('uploader.image_uploader') }}">Show uploaded Images</a>
     <!--<a href="{{ url_for('uploader.delete_latest_image') }}">Delete last Image</a>-->
     <a href="{{ url_for('uploader.delete_all') }}">Delete all</a>
     {% if not image_names %}
