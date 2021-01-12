@@ -84,11 +84,11 @@ def delete_image(img_to_delete):
     query by contributer_id since the image info would be deleted. To fix this we would have to call the csv_uploader
     after each delete -> would not make sense. Better approach is to just delete the image from the folder -> check before
     sending to ArchivesSpace if the image has the info AND is in the folder and delete everything from db after an upload.
-
-    image_id = img_to_delete.split(" - ")[0].rsplit('/', 1)[-1]
-    Image.query.filter_by(contributor_id=image_id).delete()
-    db.session.commit()
     '''
+    image_id = img_to_delete.split(" - ")[0].rsplit('/', 1)[-1]
+    Image.query.filter_by(contributor_id=image_id).update({'path':None})
+    db.session.commit()
+
     os.remove('tad_uploader/static/' + img_to_delete)
     return redirect(url_for('uploader.image_uploader'))
 
@@ -170,7 +170,7 @@ endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
 ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "d1gitalpr3servation!"
+ds_password = "xxx"
 
 login_data = {
     "email": ds_user,
@@ -185,7 +185,7 @@ headers = {
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "t0tt3nh@m"
+as_password = "xxx"
 as_archival_repo = "18"
 as_url_port = "8089"
 
