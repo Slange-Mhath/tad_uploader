@@ -1,3 +1,16 @@
  {% include "base.html" %}
- <p class=error><strong>Error:</strong> {{ error }}
 
+{% if error == "wrong id"%}
+ <p class=error><strong>Error:</strong> Your image with the id: {{ image_id }} is not in the CSV.</p>
+    <p>Your CSV contains currently the following ID's:</p>
+
+ <ul>
+    {% for i in images %}<li>
+        <strong>Image_id: {{ i.contributor_id }}</strong>
+        with the title: {{ i.title }}
+    </li>
+    {%  endfor %}
+</ul>
+{%  endif %}
+<a href="{{ url_for('uploader.csv_uploader') }}">Back to CSV upload</a>
+<a href="{{ url_for('uploader.image_uploader') }}">Back to Image upload</a>

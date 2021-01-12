@@ -25,21 +25,32 @@ def index():
 def image_uploader():
     image_names = os.listdir('tad_uploader/static/uploads/images')
     image_infos = []
+    error = None
     if image_names:
         for image in image_names:
             image_id = image.split(" - ")[0]
             image_info = Image.query.filter_by(contributor_id=image_id).first()
-            print(image_info)
-            image_info.path = "uploads/images/" + image
-            db.session.commit()
-            image_infos.append(image_info)
+            if not image_info.rights:
+                image_info.rights = "Image has no Rights Statement"
+            if not image_info.rights:
+                image_info.title = "Image has no title"
+            if image_info:
+                print(image_info)
+                image_info.path = "uploads/images/" + image
+                db.session.commit()
+                image_infos.append(image_info)
+            else:
+                os.remove('tad_uploader/static/uploads/images/' + image)
+                images = Image.query.all()
+                error = "wrong id"
+                return render_template('uploader/error.html', images=images, error=error, image_id=image_id)
     if request.method == 'POST':
         f = request.files.get('file')
         if f.filename.split(" - ")[0].isdigit():
             f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
         else:
 
-            return f" Your image name '{f.filename}' contains no ID. Please name your 'image id - title of image'", 500
+            return f"Your image name '{f.filename}' contains no ID. Please name your 'image id - title of image'", 500
     return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
