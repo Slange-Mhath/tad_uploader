@@ -1,10 +1,10 @@
 <ul>
     {% for i in images %} <li>
-        {{ i.id }}
-        {{ i.title }}
-        {{ i.contributor_id }}
-        {{ i.rights }}
-        {{ i.path }}
+        id: {{ i.id }}
+        title:{{ i.title }}
+        contr_id:{{ i.contributor_id }}
+        rights:{{ i.rights }}
+        path:{{ i.path }}
     </li>
     {%  endfor %}
 </ul>

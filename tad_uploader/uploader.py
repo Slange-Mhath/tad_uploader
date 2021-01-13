@@ -1,12 +1,14 @@
 import os
 from os import path
 import glob
+import re
 import json
 import csv
 import requests
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 from .models import Image
 from tad_uploader import db
+from flask import current_app
 
 from werkzeug.exceptions import abort
 
@@ -30,10 +32,6 @@ def image_uploader():
         for image in image_names:
             image_id = image.split(" - ")[0]
             image_info = Image.query.filter_by(contributor_id=image_id).first()
-            if not image_info.rights:
-                image_info.rights = "Image has no Rights Statement"
-            if not image_info.rights:
-                image_info.title = "Image has no title"
             if image_info:
                 print(image_info)
                 image_info.path = "uploads/images/" + image
@@ -44,6 +42,12 @@ def image_uploader():
                 images = Image.query.all()
                 error = "wrong id"
                 return render_template('uploader/error.html', images=images, error=error, image_id=image_id)
+            if not image_info.rights:
+                image_info.rights = "Image has no Rights Statement"
+            if not image_info.title:
+                image_info.title = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', image.split(" - ")[1])[0]
+                Image.query.filter_by(contributor_id=image_id).update({'title': image_info.title})
+                db.session.commit()
     if request.method == 'POST':
         f = request.files.get('file')
         if f.filename.split(" - ")[0].isdigit():
@@ -97,7 +101,7 @@ def delete_image(img_to_delete):
     sending to ArchivesSpace if the image has the info AND is in the folder and delete everything from db after an upload.
     '''
     image_id = img_to_delete.split(" - ")[0].rsplit('/', 1)[-1]
-    Image.query.filter_by(contributor_id=image_id).update({'path':None})
+    Image.query.filter_by(contributor_id=image_id).update({'path': None})
     db.session.commit()
 
     os.remove('tad_uploader/static/' + img_to_delete)
@@ -172,7 +176,8 @@ def view_identifier(identifier):
     obj = Identifier.query.get_or_404(identifier)
 '''''
 
-# starting with the upload
+
+# HERE THE SCRIPT FUNCTIONALITY STARTS https://github.com/Slange-Mhath/TaD_Scripts/blob/main/Migration%20Script/images.py
 
 # DSPACE Credentials
 
@@ -181,7 +186,7 @@ endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
 ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "xxx"
+ds_password = "d1gitalpr3servation!"
 
 login_data = {
     "email": ds_user,
@@ -196,7 +201,7 @@ headers = {
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "xxx"
+as_password = "t0tt3nh@m"
 as_archival_repo = "18"
 as_url_port = "8089"
 
@@ -287,18 +292,22 @@ def upload_to_as():
                                format_metadata("dc.rights", image.rights)
                                ]
             print(image_formatted)
-            ds_object = create_dspace_record(image_formatted, ds_collection, ds_session_id)
-            upload_image(ds_object['link'], image.path, image.contributor_id)
-            link_to_image = "{}/bitstream/handle/{}/{}".format(api_base_url, ds_object['handle'], image.contributor_id)
             as_agent = get_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id)
             if "notes" in as_agent and as_agent['notes']:
+                ds_object = create_dspace_record(image_formatted, ds_collection, ds_session_id)
+                upload_image(ds_object['link'], image.path, image.contributor_id)
+                link_to_image = "{}/bitstream/handle/{}/{}".format(api_base_url, ds_object['handle'],
+                                                                   image.contributor_id)
                 update_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id, as_agent, link_to_image,
                                 image.rights)
                 print(
                     f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
+
             else:
-                print(
-                    f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
+                error = "id not in ArchivesSpace"
+                print(f"The Agent with the id {image.contributor_id} is not in ArchivesSpace or {as_agent} has no label")
+                return render_template('uploader/error.html', image_id=image.contributor_id, images=images, error=error)
+
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
     # clear db after succesfull upload
     delete_all()

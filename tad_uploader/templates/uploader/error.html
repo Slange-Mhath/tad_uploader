@@ -1,5 +1,11 @@
  {% include "base.html" %}
 
+{% if error == "id not in ArchivesSpace"%}
+ <p class=error><strong>Error:</strong> There is no Agent with the Agent ID {{ image_id }}. Please check ArchivesSpace</p>
+
+{%  endif %}
+
+
 {% if error == "wrong id"%}
  <p class=error><strong>Error:</strong> Your image with the id: {{ image_id }} is not in the CSV.</p>
     <p>Your CSV contains currently the following ID's:</p>
