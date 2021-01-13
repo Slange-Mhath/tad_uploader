@@ -11,7 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/csv/test_person_not_in_as_noname.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/images/9999 - test-me-mum.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +119,7 @@
       <workItem from="1609938748378" duration="13619000" />
       <workItem from="1610108192583" duration="12787000" />
       <workItem from="1610240776925" duration="2274000" />
-      <workItem from="1610298580026" duration="49639000" />
+      <workItem from="1610298580026" duration="50017000" />
     </task>
     <servers />
   </component>
