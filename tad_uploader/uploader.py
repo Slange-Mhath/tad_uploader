@@ -313,4 +313,4 @@ def upload_to_as():
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
     # clear db after succesfull upload
     delete_all()
-    return redirect(url_for('uploader.csv_uploader'))
+    return render_template('uploader/landing_page.html', status_code=status_code)
