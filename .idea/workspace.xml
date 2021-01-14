@@ -11,12 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tad_uploader/static/ajax-loader.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/static/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/static/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/landing_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/landing_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +122,7 @@
       <workItem from="1609938748378" duration="13619000" />
       <workItem from="1610108192583" duration="12787000" />
       <workItem from="1610240776925" duration="2274000" />
-      <workItem from="1610298580026" duration="52978000" />
+      <workItem from="1610298580026" duration="57199000" />
     </task>
     <servers />
   </component>
@@ -143,6 +142,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1610629967202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1610634617537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

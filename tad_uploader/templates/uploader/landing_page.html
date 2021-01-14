@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<p>Test</p>
+{% if status_code == 200 %}
+<div class="success">
+    <h3>Upload was successfull</h3>
+    <a href="{{ url_for('uploader.csv_uploader') }}">Back to the CSV Upload</a>
+     <a href="{{ url_for('uploader.image_uploader') }}">Upload more Images</a>
+</div>
+{% else %}
+    <h3>Upload wasn't successful</h3>
+    <p>Error code: {{ status_code }}</p>
+    <a href="{{ url_for('uploader.csv_uploader') }}">Back to the CSV Upload</a>
+     <a href="{{ url_for('uploader.image_uploader') }}">Upload more Images</a>
+{% endif %}
+
+{% endblock %}

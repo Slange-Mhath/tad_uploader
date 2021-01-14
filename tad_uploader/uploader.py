@@ -186,7 +186,7 @@ endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
 ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "xxx"
+ds_password = "d1gitalpr3servation!"
 
 login_data = {
     "email": ds_user,
@@ -201,7 +201,7 @@ headers = {
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "xxx"
+as_password = "t0tt3nh@m"
 as_archival_repo = "18"
 as_url_port = "8089"
 
@@ -276,7 +276,8 @@ def update_as_agent(as_base_url, as_url_port, as_session_id, agent_id, as_agent,
                               'subnotes': [
                                   {'content': rights_statement, 'jsonmodel_type': 'note_text', 'publish': False}]})
     response = requests.post(link_to_agent, headers=as_headers, data=json.dumps(as_agent))
-    print(response.status_code)
+    status_code = response.status_code
+    return status_code
 
 
 @bp.route('/upload_to_as', methods=['GET', 'POST'])
@@ -285,6 +286,7 @@ def upload_to_as():
     ds_session_id = login_to_dspace()
     as_session_id = as_login()
     images = Image.query.all()
+    status_code = None
     for image in images:
         if image.title and image.contributor_id and image.rights and image.path:
             image_formatted = [format_metadata("dc.identifier", image.contributor_id),
@@ -298,7 +300,7 @@ def upload_to_as():
                 upload_image(ds_object['link'], image.path, image.contributor_id)
                 link_to_image = "{}/bitstream/handle/{}/{}".format(api_base_url, ds_object['handle'],
                                                                    image.contributor_id)
-                update_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id, as_agent, link_to_image,
+                status_code = update_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id, as_agent, link_to_image,
                                 image.rights)
                 print(
                     f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
@@ -310,5 +312,6 @@ def upload_to_as():
 
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
     # clear db after succesfull upload
+    print(status_code)
     delete_all()
-    return redirect(url_for('uploader.csv_uploader'))
+    return render_template('uploader/landing_page.html', status_code=status_code)
