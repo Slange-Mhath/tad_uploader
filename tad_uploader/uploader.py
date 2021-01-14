@@ -276,7 +276,8 @@ def update_as_agent(as_base_url, as_url_port, as_session_id, agent_id, as_agent,
                               'subnotes': [
                                   {'content': rights_statement, 'jsonmodel_type': 'note_text', 'publish': False}]})
     response = requests.post(link_to_agent, headers=as_headers, data=json.dumps(as_agent))
-    print(response.status_code)
+    status_code = response.status_code
+    return status_code
 
 
 @bp.route('/upload_to_as', methods=['GET', 'POST'])
@@ -285,6 +286,7 @@ def upload_to_as():
     ds_session_id = login_to_dspace()
     as_session_id = as_login()
     images = Image.query.all()
+    status_code = None
     for image in images:
         if image.title and image.contributor_id and image.rights and image.path:
             image_formatted = [format_metadata("dc.identifier", image.contributor_id),
@@ -298,7 +300,7 @@ def upload_to_as():
                 upload_image(ds_object['link'], image.path, image.contributor_id)
                 link_to_image = "{}/bitstream/handle/{}/{}".format(api_base_url, ds_object['handle'],
                                                                    image.contributor_id)
-                update_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id, as_agent, link_to_image,
+                status_code = update_as_agent(as_base_url, as_url_port, as_session_id, image.contributor_id, as_agent, link_to_image,
                                 image.rights)
                 print(
                     f" the image with the id: {image.contributor_id} and the title: {image.title} with the rights: {image.rights} has been uploaded to {link_to_image}")
