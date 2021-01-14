@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div id="loading"></div>
+    <div id="content">
     <section class="uploader">
     <h1>Image Upload</h1>
         <p style="text-align: center">Please upload your Image in the following format: <em> ID - Title </em> <br> e.g. <em>290996 - Santa playing banjo.jpg</em></p>
@@ -43,8 +45,9 @@
     {% if not image_names %}
         <p class=error><strong>Please upload at least one image</strong>
     {% else %}
-       <a href="{{ url_for('uploader.upload_to_as') }}">Upload to ArchivesSpace</a>
+       <a onclick="loading();" href="{{ url_for('uploader.upload_to_as') }}">Upload to ArchivesSpace</a>
     {% endif %}
     </div>
 </section>
+    </div>
 {% endblock %}

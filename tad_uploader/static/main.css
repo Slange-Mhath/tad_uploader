@@ -1,0 +1,12 @@
+div#loading {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    display: none;
+    background: url("ajax-loader.gif") no-repeat;
+    cursor: wait;
+    }

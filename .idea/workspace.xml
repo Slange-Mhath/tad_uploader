@@ -11,9 +11,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tad_uploader/static/ajax-loader.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/csv/test_person_not_in_as_noname.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/images/9999 - test-me-mum.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/static/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/static/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,12 +67,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tad_uploader/static/bootstrap" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tad_uploader/static" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tad_uploader/static" />
       <recent name="$PROJECT_DIR$/tad_uploader/static/bootstrap" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -119,7 +123,7 @@
       <workItem from="1609938748378" duration="13619000" />
       <workItem from="1610108192583" duration="12787000" />
       <workItem from="1610240776925" duration="2274000" />
-      <workItem from="1610298580026" duration="50017000" />
+      <workItem from="1610298580026" duration="52978000" />
     </task>
     <servers />
   </component>
@@ -139,6 +143,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1610567154656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1610629967202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
