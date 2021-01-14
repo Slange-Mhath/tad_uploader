@@ -186,7 +186,7 @@ endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
 ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "xxx"
+ds_password = "d1gitalpr3servation!"
 
 login_data = {
     "email": ds_user,
@@ -201,7 +201,7 @@ headers = {
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "xxx"
+as_password = "t0tt3nh@m"
 as_archival_repo = "18"
 as_url_port = "8089"
 
@@ -312,5 +312,6 @@ def upload_to_as():
 
     # if condition: upload successfull return successfull page and what is uploaded - if not than what is not uploaded
     # clear db after succesfull upload
+    print(status_code)
     delete_all()
     return render_template('uploader/landing_page.html', status_code=status_code)

@@ -1,5 +1,5 @@
- {% include "base.html" %}
-
+ {% extends "base.html" %}
+{% block content %}
 {% if error == "id not in ArchivesSpace"%}
  <p class=error><strong>Error:</strong> There is no Agent with the Agent ID {{ image_id }}. Please check ArchivesSpace</p>
 
@@ -20,3 +20,5 @@
 {%  endif %}
 <a href="{{ url_for('uploader.csv_uploader') }}">Back to CSV upload</a>
 <a href="{{ url_for('uploader.image_uploader') }}">Back to Image upload</a>
+
+{% endblock %}
