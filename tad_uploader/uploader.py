@@ -44,6 +44,8 @@ def image_uploader():
                 return render_template('uploader/error.html', images=images, error=error, image_id=image_id)
             if not image_info.rights:
                 image_info.rights = "Image has no Rights Statement"
+                Image.query.filter_by(contributor_id=image_id).update({'rights': image_info.rights})
+                db.session.commit()
             if not image_info.title:
                 image_info.title = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', image.split(" - ")[1])[0]
                 Image.query.filter_by(contributor_id=image_id).update({'title': image_info.title})
