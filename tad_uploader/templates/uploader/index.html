@@ -1,11 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Welcome to the Uploader for Tobar an Dualchais data
-</h1>
-<h2 class="subtitle">
-  Heart of golden glory!
-</h2>
+    <section class="headline">
+        <h1 class="title">
+            Welcome to the Uploader for Tobar an Dualchais data
+        </h1>
+        <h3 class="subtitle">
+            Upload your images and music based on a CSV file to store it in DSPACE and link it to ArchivesSpace
+        </h3>
+    </section>
+    <section class="choose">
+        <div class="row">
+            <div class="col-lg" class="deactivated">
+                <div class="card">
+                    <h4>Music Upload</h4>
+                    <div class="text-center">
+                        <img src="../../static/img/mp4-upload.png" class="rounded" alt="...">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg">
+                <a href="{{ url_for('uploader.image_uploader') }}">
+                    <div class="card">
+                        <h4>Image Upload</h4>
+                        <div class="text-center">
+                            <img src="../../static/img/image-upload.png" class="rounded" alt="...">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
