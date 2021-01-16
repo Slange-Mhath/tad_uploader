@@ -11,13 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tad_uploader/static/img/image-upload.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tad_uploader/static/img/mp4-upload.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/static/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/static/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tad_uploader/static/uploads/images/2078 - William C Sutherland (back left), HSutherland (back right) and their employees at their Tailor's Shop in Brora - from C Udewerage-Perera (grandniece) - via FMcR.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
