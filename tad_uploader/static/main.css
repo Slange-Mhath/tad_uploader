@@ -10,3 +10,47 @@ div#loading {
     background: url("ajax-loader.gif") no-repeat;
     cursor: wait;
     }
+
+body{
+}
+
+.headline{
+    width: 80%;
+    text-align: center;
+    margin: auto auto;
+}
+.headline h1{
+    margin-top: 2rem;
+}
+.choose{
+    display: flex;
+    margin: 5em auto;
+    text-align: center;
+}
+
+.choose h4{
+    margin-top: 1rem;
+}
+
+.choose img{
+    display: inline-flex;
+    width: 75%;
+}
+.choose .card{
+    width: 60%;
+    margin: auto;
+}
+
+.subtitle{
+    margin-top: 2rem;
+}
+
+.uploader{
+    margin: auto auto;
+    text-align: center!important;
+}
+.uploader .uploader{
+    width: 80%;
+    margin: auto auto;
+}
+

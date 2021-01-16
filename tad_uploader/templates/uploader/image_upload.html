@@ -3,51 +3,60 @@
 {% block content %}
     <div id="loading"></div>
     <div id="content">
-    <section class="uploader">
-    <h1>Image Upload</h1>
-        <p style="text-align: center">Please upload your Image in the following format: <em> ID - Title </em> <br> e.g. <em>290996 - Santa playing banjo.jpg</em></p>
-    <div class="uploader">
-    {{ dropzone.load_js() }}
-    {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here") }}
-    {{ dropzone.create(action=url_for('uploader.image_uploader')) }}
-        </div>
-</section>
-    <section class="images">
-        <div class="image-list">
-            <div class="row">
-                {% for image_info in image_infos %}
-                <div class="col-lg-4">
-                <picture>
-                <img class="image-preview rounded img-fluid img-thumbnail" src="{{ url_for('static', filename=image_info.path) }}">
-                </picture>
-                </div>
-            <div class="col-lg-6">
-                <ul>
-                    <li>"Id: {{ image_info.contributor_id}}"</li> <!-- get image id from the name of file -->
-                    <li>"Title: {{ image_info.title }}"</li>
-                    <li>"Image Rights: {{ image_info.rights }}"</li>
-                </ul>
-            </div>
-            <div class="col-lg-2">
-               <button type="button" class="close" aria-label="Close">
-                <a href="{{ url_for('uploader.delete_image', img_to_delete=image_info.path) }}">&times;</a>
-                </button>
-            </div>
-                    </div>
-    {% endfor %}
+        <div class="container-fluid">
+            <section class="uploader">
 
-</div>
-    <div class="button-list">
-    <a href="{{ url_for('uploader.csv_uploader') }}">Back</a>
-    <a href="{{ url_for('uploader.image_uploader') }}">Show uploaded Images</a>
-    <!--<a href="{{ url_for('uploader.delete_latest_image') }}">Delete last Image</a>-->
-    <a href="{{ url_for('uploader.delete_all') }}">Delete all</a>
-    {% if not image_names %}
-        <p class=error><strong>Please upload at least one image</strong>
-    {% else %}
-       <a onclick="loading();" href="{{ url_for('uploader.upload_to_as') }}">Upload to ArchivesSpace</a>
-    {% endif %}
-    </div>
-</section>
+                <h1>Image Upload</h1>
+                <p style="text-align: center">Please upload your Image in the following format: <em> ID - Title </em>
+                    <br>
+                    e.g. <em>290996 - Santa playing banjo.jpg</em></p>
+                <div class="uploader">
+                    {{ dropzone.load_js() }}
+                    {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here") }}
+                    {{ dropzone.create(action=url_for('uploader.image_uploader')) }}
+                </div>
+
+            </section>
+            <section class="images">
+                <div class="image-list">
+                    <div class="row">
+                        {% for image_info in image_infos %}
+                            <div class="col-lg-4">
+                                <picture>
+                                    <img class="image-preview rounded img-fluid img-thumbnail"
+                                         src="{{ url_for('static', filename=image_info.path) }}">
+                                </picture>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul>
+                                    <li>"Id: {{ image_info.contributor_id }}"</li>
+                                    <!-- get image id from the name of file -->
+                                    <li>"Title: {{ image_info.title }}"</li>
+                                    <li>"Image Rights: {{ image_info.rights }}"</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="button" class="close" aria-label="Close">
+                                    <a href="{{ url_for('uploader.delete_image', img_to_delete=image_info.path) }}">&times;</a>
+                                </button>
+                            </div>
+                            </div>
+                        {% endfor %}
+
+                </div>
+                <div class="button-list">
+                    <a href="{{ url_for('uploader.csv_uploader') }}">Back</a>
+                    <a href="{{ url_for('uploader.image_uploader') }}">Show uploaded Images</a>
+                    <!--<a href="{{ url_for('uploader.delete_latest_image') }}">Delete last Image</a>-->
+                    <a href="{{ url_for('uploader.delete_all') }}">Delete all</a>
+                    {% if not image_names %}
+                        <p class=error><strong>Please upload at least one image</strong>
+                    {% else %}
+                        <a onclick="loading();" href="{{ url_for('uploader.upload_to_as') }}">Upload to
+                            ArchivesSpace</a>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
     </div>
 {% endblock %}
