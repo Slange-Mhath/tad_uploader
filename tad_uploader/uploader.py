@@ -32,7 +32,9 @@ def image_uploader():
         for image in image_names:
             image_id = image.split(" - ")[0]
             image_info = Image.query.filter_by(contributor_id=image_id).first()
-            if image_info:
+            print(image_info)
+            if image_info: # TODO: Bug: after uploading an Image which has no image_info the next image throws the server
+                # error 0 probably cause the first image never enters this if clause.
                 print(image_info)
                 image_info.path = "uploads/images/" + image
                 db.session.commit()
@@ -41,6 +43,7 @@ def image_uploader():
                 os.remove('tad_uploader/static/uploads/images/' + image)
                 images = Image.query.all()
                 error = "wrong id"
+                print(error)
                 return render_template('uploader/error.html', images=images, error=error, image_id=image_id)
             if not image_info.rights:
                 image_info.rights = "Image has no Rights Statement"
