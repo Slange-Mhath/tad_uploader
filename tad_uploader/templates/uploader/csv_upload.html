@@ -1,7 +1,7 @@
 {% include "base.html" %}
 
 <div class="heading">
-    <h1>Upload your CSV!</h1>
+    <h1>Before uploading your Images provide a CSV</h1>
 </div>
 {% block instructions %}
     {% if not csvs %}
@@ -39,8 +39,7 @@
                             </ul>
                         </div>
                         <div class="col-lg-2">
-                            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}"><img style="width:30%;"
-                                                                                                   src="../../static/img/bin-red.png"></a>
+                            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}"><img style="width:30%;" src="../../static/img/bin-red.png"></a>
                         </div>
                     {% endfor %}
                 </div>

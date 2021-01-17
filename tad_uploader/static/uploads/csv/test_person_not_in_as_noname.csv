@@ -1,4 +1,4 @@
-﻿Contributor ID,First Name(s),Surname,Title of Photo,Rights Statement,Owner/Donator of photo ***not to be shown on front end***
+Contributor ID,First Name(s),Surname,Title of Photo,Rights Statement,Owner/Donator of photo ***not to be shown on front end***
 10147,James,Barclay,James Barclay c. 1970,Photograph shown with permission from the family,Elizabeth Morewood (sister)
 10152,Davina,Barclay,Four Generations of Hoseasons (Davina holding basket) c. 1900,Photograph shown with permission from the family,Elizabeth Morewood (daughter)
 10152,Davina,Barclay,Wedding Day of Davina Hoseason and John Barclay - July 1926,Photograph shown with permission from the family,Elizabeth Morewood (daughter)
@@ -19,7 +19,7 @@
 4242,Norman,MacInnes,Norman MacInnes,Photograph shown with permission from the family,Floraidh Forrest
 4244,Duncan,Currie,Duncan Currie (right) with Neil Maclennan (ID 3175) centre,Photograph shown with permission from the family,Floraidh Forrest
 4244,Duncan,Currie,Jean (5092) and Duncan Currie,Jo MacDonald,Floraidh Forrest (photograph taken by Jo MacDonald)
-4814,Margaret Fay,Shaw,John Lorne Campbell and Margaret Fay Shaw outside Canna House c. 1970,NTS (Canna Collection),"National Trust for Scotland, Canna House"
+4814,Margaret Fay,Shaw,John Lorne Campbell and Margaret Fay Shaw outside Canna House c. 1970,,"National Trust for Scotland, Canna House"
 4814,Margaret Fay,Shaw,MFS in New York,NTS (Canna Collection),"National Trust for Scotland, Canna House"
 4814,Margaret Fay,Shaw,MFS in South Uist 1930,NTS (Canna Collection),"National Trust for Scotland, Canna House"
 482,William ,Matheson,William Matheson (on left) with Fred Macaulay in Inverness,Photograph shown with permission from the family,Mary Yardley (niece)
@@ -38,7 +38,7 @@
 5412,Johina,Leith,Johina 90th birthday 1989,Photograph shown with permission from the family,Patricia Long (granddaughter)
 5412,Johina,Leith,"Johina Leith washing eggs in Appiehouse kitchen, 1951, featured in Nat Geo magazine",Photograph shown with permission from the family,William Watters (grandson)
 5412,Johina,Leith,Johina on front cover of Alexander Fenton's book (on brigstones behind byre),Photograph shown with permission from the family,Patricia Long (granddaughter)
-5412,Johina,Leith,"Johina's house, sometime in the 1970s.  ",Photograph shown with permission from the family,Patricia Long (granddaughter)
+5412,Johina,Leith,"Johina's house, sometime in the 1970s.",Photograph shown with permission from the family,Patricia Long (granddaughter)
 5753,Angus ,Campbell,Angus Campbell Sitting,Photograph shown with permission from the family,Anne Considine (daughter)
 5753,Angus ,Campbell,Angus Campbell standing,Photograph shown with permission from the family,Anne Considine (daughter)
 5753,Angus ,Campbell,Angus Campbell with RMS Cameronia 1919-20,Photograph shown with permission from the family,Anne Considine (daughter)
@@ -73,4 +73,4 @@
 346,Norman,MacLean,"Norman MacLean playing the pipes in Aisgernis, South Uist in 1956",Photograph shown with permission from the owner,Peigi Townsend (close friend)
 346,Norman,MacLean,Norman MacLean playing the pipes in Braemar in 1960,Photograph shown with permission from the owner,Peigi Townsend (close friend)
 2078,Hector ,Sutherland,"William Cairn Sutherland (back left), Hector Sutherland (back right) and their employees at their taylor's shop in Brora",Photograph shown with permission from the family,Christina Udewerage-Perera (grandniece)
-2082,William Cairn,Sutherland,"William Cairn Sutherland (back left), Hector Sutherland (back right) and their employees at their taylor's shop in Brora",Photograph shown with permission from the family,Christina Udewerage-Perera
+9999,William Cairn,Doe,,You shall not pass,Christina Udewerage-Perera

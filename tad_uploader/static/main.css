@@ -86,3 +86,21 @@ body{
 .action-icons{
     margin-top: 2rem;
 }
+
+.image-preview{
+    width: 40%;
+}
+
+.image-list{
+    width:80%;
+    margin: 1rem auto;
+}
+
+.image-info{
+    padding-top: 0.3rem;
+}
+
+.button-list{
+    width: 80%;
+    margin-left: 14rem;
+}
