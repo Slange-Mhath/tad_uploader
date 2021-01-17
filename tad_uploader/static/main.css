@@ -47,10 +47,42 @@ body{
 
 .uploader{
     margin: auto auto;
-    text-align: center!important;
-}
-.uploader .uploader{
-    width: 80%;
-    margin: auto auto;
+    width: 100%;
 }
 
+.heading{
+    text-align: center;
+}
+
+.small-image{
+    width:30%;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.row-names{
+    color: red;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.inactiveLinks{
+    pointer-events: none;
+    cursor: default;
+    text-align: center;
+}
+
+.csv-list{
+    margin: 4rem 0;
+    padding-left: 4rem;
+}
+
+.action-icons{
+    margin-top: 2rem;
+}

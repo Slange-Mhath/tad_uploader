@@ -1,37 +1,108 @@
- {% include "base.html" %}
+{% include "base.html" %}
 
-
-    <h1>CSV Upload</h1>
-
-            <p style="text-align: center">Please upload your CSV with the following rows: <em>Contributor ID, Title of Photo, Rights Statement</em> <br> e.g. <br> <em>Contributor ID: 290996 <br> Title of Photo: Santa playing banjo <br>Rights Statement: All rights reserved</em></p>
-
-    {{ dropzone.load_js() }}
-     {{ dropzone.config(allowed_file_custom ="true" ,allowed_file_type=".csv", default_message="Drop your CSV here") }}
-{{ dropzone.create(action=url_for('uploader.csv_uploader')) }}
-<div class="row">
-     {% for csv in csvs %}
-         <div class="col-lg-6">
-         <li>{{ csv }}</li>
-         </div>
-          <div class="col-lg-6">
-          <button type="button" class="close" aria-label="Close">
-            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}">&times;</a>
-          </button>
-          </div>
-    {% endfor %}
+<div class="heading">
+    <h1>Upload your CSV!</h1>
 </div>
+{% block instructions %}
+    {% if not csvs %}
+        <section class="important-box">
+            <div class="container">
+                <div class="card" style="width: 62%;">
+                    <img src="../../static/img/alert_csv.png" class="card-img-top" alt="..."
+                         style="width: 60%; align-self: center">
+                    <div class="card-body">
+                        <h3>Your CSV <em>must</em> contain the following specifications </h3>
+                        <p class="card-text">Please upload your CSV with the following rows: <br><span
+                                class="row-names">Contributor ID, Title of Photo, Rights
+        Statement</span><br>For example:<br> <em>Contributor ID: 290996 <br> Title of Photo: Santa playing banjo <br>Rights
+                            Statement: All rights reserved</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="uploader">
 
-    <!--<a href="{{ url_for('uploader.delete_latest_csv') }}">Delete last CSV</a>-->
-    <a href="{{ url_for('uploader.csv_uploader') }}">Show uploaded CSV files</a>
-    <a href="{{ url_for('uploader.delete_all') }}">Delete all</a>
 
+            {{ dropzone.load_js() }}
+            {{ dropzone.config(allowed_file_custom ="true" ,allowed_file_type=".csv", default_message="Drop your CSV here") }}
+            {{ dropzone.create(action=url_for('uploader.csv_uploader')) }}
+
+        </section>
+    {% else %}
+        <div class="container">
+            <div class="csv-list">
+                <div class="row">
+                    {% for csv in csvs %}
+                        <div class="col-lg-6">
+                            <ul>
+                                <li>{{ csv }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}"><img style="width:10%;"
+                                                                                                   src="../../static/img/bin-red.png"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
+{##}
+{#<div class="container">#}
+{#    {% block content %}#}
+{#        {% if not csvs %}#}
+{#            <div class="row inactiveLinks">#}
+{#                <div class="col-lg-6">#}
+{#                    <a href="{{ url_for('uploader.delete_all') }}"><img style="width:10%;"#}
+{#                                                                        src="../../static/img/bin-grey.png"></a>#}
+{#                </div>#}
+{#                <div class="col-lg-6">#}
+{#                    <a href="{{ url_for('uploader.csv_uploader') }}"><img style="width:10%;"#}
+{#                                                                          src="../../static/img/arrow_grey.png"></a>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% else %}#}
+{#            <div class="row">#}
+{#                <div class="col-lg-6">#}
+{#                    <a href="{{ url_for('uploader.delete_all') }}"><img style="width:10%;"#}
+{#                                                                        src="../../static/img/bin-red.png"></a>#}
+{#                </div>#}
+{#                <div class="col-lg-6">#}
+{#                    <a href="{{ url_for('uploader.csv_uploader') }}"><img style="width:10%;"#}
+{#                                                                          src="../../static/img/arrow_green.png"></a>#}
+{#                </div>#}
+{#            </div>#}
+{#            </div>#}
+{##}
+{#        {% endif %}#}
+{##}
+{#    {% endblock %}#}
 
 {% block content %}
     {% if not csvs %}
-        <p class=error><strong>Please upload a valid CSV</strong></p>
+        <div class="container">
+            <a href="{{ url_for('uploader.csv_uploader') }}"><img style="width:10%;"
+                                                                  src="../../static/img/arrow_green.png"></a>
+        </div>
     {% else %}
-        <a href="{{ url_for('uploader.image_uploader') }}">Upload images</a>
+        <div class="container action-icons">
+            <div class="row">
+                <div class="col-lg-2">
+                    <a href="{{ url_for('uploader.csv_uploader') }}"><img style="width:50%; margin-top:5rem;"
+                                                                            src="../../static/img/back_arrow.png"></a>
+                </div>
+                <div class="col-lg-10">
+                    <a href="{{ url_for('uploader.image_uploader') }}"><img style="width:50%;"
+                                                                            src="../../static/img/img_upload_green.png"></a>
+                </div>
+                <div class="col-lg-2">
 
+                </div>
+            </div>
+        </div>
     {% endif %}
-
 {% endblock %}
