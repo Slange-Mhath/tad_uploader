@@ -33,13 +33,13 @@
             <div class="csv-list">
                 <div class="row">
                     {% for csv in csvs %}
-                        <div class="col-lg-6">
+                        <div class="col-lg-10">
                             <ul>
                                 <li>{{ csv }}</li>
                             </ul>
                         </div>
-                        <div class="col-lg-6">
-                            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}"><img style="width:10%;"
+                        <div class="col-lg-2">
+                            <a href="{{ url_for('uploader.delete_csv', csv_to_delete=csv) }}"><img style="width:30%;"
                                                                                                    src="../../static/img/bin-red.png"></a>
                         </div>
                     {% endfor %}
@@ -92,11 +92,11 @@
         <div class="container action-icons">
             <div class="row">
                 <div class="col-lg-2">
-                    <a href="{{ url_for('uploader.csv_uploader') }}"><img style="width:50%; margin-top:5rem;"
+                    <a href="{{ url_for('uploader.csv_uploader') }}"><img style="width:40%; margin-top:8rem;"
                                                                             src="../../static/img/back_arrow.png"></a>
                 </div>
-                <div class="col-lg-10">
-                    <a href="{{ url_for('uploader.image_uploader') }}"><img style="width:50%;"
+                <div class="col-lg-8">
+                    <a href="{{ url_for('uploader.image_uploader') }}"><img style="width:70%;"
                                                                             src="../../static/img/img_upload_green.png"></a>
                 </div>
                 <div class="col-lg-2">
