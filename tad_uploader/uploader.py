@@ -22,44 +22,43 @@ def index():
     return render_template('uploader/index.html')
 
 
+def validate_image():
+    error = None
+    uploaded_image = request.files.get('file')
+    if uploaded_image.filename.split(" - ")[0].isdigit():
+        uploaded_image_id = uploaded_image.filename.split(" - ")[0]
+        image_info = Image.query.filter_by(contributor_id=uploaded_image_id).first()
+        if image_info:
+            if not image_info.title:
+                image_info.title = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', uploaded_image.split(" - ")[1])[0]
+                Image.query.filter_by(contributor_id=uploaded_image_id).update({'title': image_info.title})
+                db.session.commit()
+            if not image_info.rights:
+                image_info.rights = "Image has no Rights Statement"
+                Image.query.filter_by(contributor_id=uploaded_image_id).update({'rights': image_info.rights})
+                db.session.commit()
+        else:
+            all_images = Image.query.all()
+            error = f"The Id {uploaded_image_id} is not in the CSV."
+            return render_template('uploader/error.html', images=all_images, error=error)
+    else:
+        return f"Your image name '{uploaded_image.filename}' contains no ID. Please name your 'image id - title of image'", 500
+
+
 @bp.route('/image_uploader', methods=['GET', 'POST'])
 @login_required
 def image_uploader():
     image_names = os.listdir('tad_uploader/static/uploads/images')
     image_infos = []
-    error = None
-    if image_names:
+    if request.method == 'POST' and validate_image() is None:
+        f = request.files.get('file')
+        f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
         for image in image_names:
             image_id = image.split(" - ")[0]
             image_info = Image.query.filter_by(contributor_id=image_id).first()
-            print(image_info)
-            if image_info: # TODO: Bug: after uploading an Image which has no image_info the next image throws the server
-                # error 0 probably cause the first image never enters this if clause.
-                print(image_info)
-                image_info.path = "uploads/images/" + image
-                db.session.commit()
-                image_infos.append(image_info)
-            else:
-                os.remove('tad_uploader/static/uploads/images/' + image)
-                images = Image.query.all()
-                error = "wrong id"
-                print(error)
-                return render_template('uploader/error.html', images=images, error=error, image_id=image_id)
-            if not image_info.rights:
-                image_info.rights = "Image has no Rights Statement"
-                Image.query.filter_by(contributor_id=image_id).update({'rights': image_info.rights})
-                db.session.commit()
-            if not image_info.title:
-                image_info.title = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', image.split(" - ")[1])[0]
-                Image.query.filter_by(contributor_id=image_id).update({'title': image_info.title})
-                db.session.commit()
-    if request.method == 'POST':
-        f = request.files.get('file')
-        if f.filename.split(" - ")[0].isdigit():
-            f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
-        else:
-
-            return f"Your image name '{f.filename}' contains no ID. Please name your 'image id - title of image'", 500
+            image_info.path = "uploads/images/" + image
+            db.session.commit()
+            image_infos.append(image_info)
     return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
