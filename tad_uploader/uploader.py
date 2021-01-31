@@ -8,6 +8,7 @@ import requests
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 from .models import Image
 from tad_uploader import db
+from pprint import pprint
 from flask import current_app
 
 from werkzeug.exceptions import abort
@@ -21,28 +22,37 @@ bp = Blueprint('uploader', __name__)
 def index():
     return render_template('uploader/index.html')
 
-
+@bp.route('/validate_image', methods=['POST'])
+@login_required
 def validate_image():
-    error = None
-    uploaded_image = request.files.get('file')
-    if uploaded_image.filename.split(" - ")[0].isdigit():
-        uploaded_image_id = uploaded_image.filename.split(" - ")[0]
-        image_info = Image.query.filter_by(contributor_id=uploaded_image_id).first()
-        if image_info:
-            if not image_info.title:
-                image_info.title = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', uploaded_image.split(" - ")[1])[0]
-                Image.query.filter_by(contributor_id=uploaded_image_id).update({'title': image_info.title})
-                db.session.commit()
-            if not image_info.rights:
-                image_info.rights = "Image has no Rights Statement"
-                Image.query.filter_by(contributor_id=uploaded_image_id).update({'rights': image_info.rights})
-                db.session.commit()
+    if request.method == 'POST':
+        uploaded_image = request.files.get('file')
+        if uploaded_image.filename.split(" - ")[0].isdigit():
+            uploaded_image_id = uploaded_image.filename.split(" - ")[0]
+            image_info = Image.query.filter_by(contributor_id=uploaded_image_id).first()
+            if image_info:
+                if not image_info.title:
+                    uploaded_image.filename = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', uploaded_image.filename.split(" - ")[1])[0]
+                    ## TODO: Entweder ich nehme die Fileendung hier aus dem Titel raus und kann dann aber in Zeile 64 nicht mehr danach splitten und dann suchen oder ich lasse es hier drin dafür heißt es dann aber in der Datenbank mit JPG vllt letzteres besser und dass man das nochmal mit ner if schleife säubert?
+                    Image.query.filter_by(contributor_id=uploaded_image_id).update({'title': image_info.title})
+                    pprint(uploaded_image.filename)
+                    db.session.commit()
+                    uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
+                    pprint(uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename)))
+                    return redirect(url_for('uploader.image_uploader'))
+                if not image_info.rights:
+                    image_info.rights = "Image has no Rights Statement"
+                    Image.query.filter_by(contributor_id=uploaded_image_id).update({'rights': image_info.rights})
+                    db.session.commit()
+                    uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
+                    return redirect(url_for('uploader.image_uploader'))
+                uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
+                return redirect(url_for('uploader.image_uploader'))
+            else:
+                pprint("ID is not in the CSV")
+                return f"Your image id '{uploaded_image_id}' is not in any oft the uploaded CSV's. Please go back to the CSV Upload'", 400
         else:
-            all_images = Image.query.all()
-            error = f"The Id {uploaded_image_id} is not in the CSV."
-            return render_template('uploader/error.html', images=all_images, error=error)
-    else:
-        return f"Your image name '{uploaded_image.filename}' contains no ID. Please name your 'image id - title of image'", 500
+            return f"Your image name '{uploaded_image.filename}' contains no ID. Please name your 'image id - title of image.'", 400
 
 
 @bp.route('/image_uploader', methods=['GET', 'POST'])
@@ -50,15 +60,12 @@ def validate_image():
 def image_uploader():
     image_names = os.listdir('tad_uploader/static/uploads/images')
     image_infos = []
-    if request.method == 'POST' and validate_image() is None:
-        f = request.files.get('file')
-        f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
-        for image in image_names:
-            image_id = image.split(" - ")[0]
-            image_info = Image.query.filter_by(contributor_id=image_id).first()
-            image_info.path = "uploads/images/" + image
-            db.session.commit()
-            image_infos.append(image_info)
+    for image in image_names:
+        image_id = image.split(" - ")[0]
+        image_info = Image.query.filter_by(contributor_id=image_id).first()
+        image_info.path = "uploads/images/" + image
+        db.session.commit()
+        image_infos.append(image_info)
     return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
