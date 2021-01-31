@@ -32,13 +32,11 @@ def validate_image():
             image_info = Image.query.filter_by(contributor_id=uploaded_image_id).first()
             if image_info:
                 if not image_info.title:
+                    uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
                     uploaded_image.filename = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', uploaded_image.filename.split(" - ")[1])[0]
-                    ## TODO: Entweder ich nehme die Fileendung hier aus dem Titel raus und kann dann aber in Zeile 64 nicht mehr danach splitten und dann suchen oder ich lasse es hier drin dafür heißt es dann aber in der Datenbank mit JPG vllt letzteres besser und dass man das nochmal mit ner if schleife säubert?
-                    Image.query.filter_by(contributor_id=uploaded_image_id).update({'title': image_info.title})
+                    Image.query.filter_by(contributor_id=uploaded_image_id).update({'title': uploaded_image.filename})
                     pprint(uploaded_image.filename)
                     db.session.commit()
-                    uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
-                    pprint(uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename)))
                     return redirect(url_for('uploader.image_uploader'))
                 if not image_info.rights:
                     image_info.rights = "Image has no Rights Statement"

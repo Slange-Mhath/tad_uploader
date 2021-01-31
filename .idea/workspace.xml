@@ -13,9 +13,7 @@
     <list default="true" id="be7efadd-c33b-4793-a16c-e3ee4f1b313e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/tad_uploader.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/tad_uploader.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/images/2078 - William C Sutherland (back left), HSutherland (back right) and their employees at their Tailor's Shop in Brora - from C Udewerage-Perera (grandniece) - via FMcR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/images/4814 - Margaret c1970 (edited) - from NTS Canna Collection (Fiona Mackenzie) - via FMcR.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/templates/uploader/image_upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tad_uploader/static/uploads/images/test" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tad_uploader/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/tad_uploader/uploader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +126,8 @@
       <workItem from="1610108192583" duration="12787000" />
       <workItem from="1610240776925" duration="2274000" />
       <workItem from="1610298580026" duration="59568000" />
-      <workItem from="1612102775569" duration="5787000" />
+      <workItem from="1612102775569" duration="6024000" />
+      <workItem from="1612131436954" duration="469000" />
     </task>
     <servers />
   </component>
@@ -148,6 +147,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1612118955712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$flaskProject.coverage" NAME="flaskProject Coverage Results" MODIFIED="1612131854659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
