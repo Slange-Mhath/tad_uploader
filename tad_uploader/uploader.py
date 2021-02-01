@@ -194,8 +194,8 @@ api_base_url = "http://test.digitalpreservation.is.ed.ac.uk/"
 endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
-ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "xxx"
+ds_user = ""
+ds_password = ""
 
 login_data = {
     "email": ds_user,
@@ -210,7 +210,7 @@ headers = {
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "xxx"
+as_password = "t0tt3nh@m"
 as_archival_repo = "18"
 as_url_port = "8089"
 
