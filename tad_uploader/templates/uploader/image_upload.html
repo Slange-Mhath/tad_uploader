@@ -23,7 +23,7 @@
         <section class="uploader">
             {{ dropzone.load_js() }}
             {{ dropzone.config(allowed_file_type="image", default_message="Drop your Image here") }}
-            {{ dropzone.create(action=url_for('uploader.image_uploader')) }}
+            {{ dropzone.create(action=url_for('uploader.validate_image')) }}
         </section>
         <section class="images">
             <div class="image-list">

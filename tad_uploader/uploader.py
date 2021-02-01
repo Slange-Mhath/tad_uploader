@@ -8,6 +8,7 @@ import requests
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 from .models import Image
 from tad_uploader import db
+from pprint import pprint
 from flask import current_app
 
 from werkzeug.exceptions import abort
@@ -21,45 +22,48 @@ bp = Blueprint('uploader', __name__)
 def index():
     return render_template('uploader/index.html')
 
+@bp.route('/validate_image', methods=['POST'])
+@login_required
+def validate_image():
+    if request.method == 'POST':
+        uploaded_image = request.files.get('file')
+        if uploaded_image.filename.split(" - ")[0].isdigit():
+            uploaded_image_id = uploaded_image.filename.split(" - ")[0]
+            image_info = Image.query.filter_by(contributor_id=uploaded_image_id).first()
+            if image_info:
+                if not image_info.title:
+                    uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
+                    uploaded_image.filename = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', uploaded_image.filename.split(" - ")[1])[0]
+                    Image.query.filter_by(contributor_id=uploaded_image_id).update({'title': uploaded_image.filename})
+                    pprint(uploaded_image.filename)
+                    db.session.commit()
+                    return redirect(url_for('uploader.image_uploader'))
+                if not image_info.rights:
+                    image_info.rights = "Image has no Rights Statement"
+                    Image.query.filter_by(contributor_id=uploaded_image_id).update({'rights': image_info.rights})
+                    db.session.commit()
+                    uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
+                    return redirect(url_for('uploader.image_uploader'))
+                uploaded_image.save(os.path.join('tad_uploader/static/uploads/images', uploaded_image.filename))
+                return redirect(url_for('uploader.image_uploader'))
+            else:
+                pprint("ID is not in the CSV")
+                return f"Your image id '{uploaded_image_id}' is not in any oft the uploaded CSV's. Please go back to the CSV Upload'", 400
+        else:
+            return f"Your image name '{uploaded_image.filename}' contains no ID. Please name your 'image id - title of image.'", 400
+
 
 @bp.route('/image_uploader', methods=['GET', 'POST'])
 @login_required
 def image_uploader():
     image_names = os.listdir('tad_uploader/static/uploads/images')
     image_infos = []
-    error = None
-    if image_names:
-        for image in image_names:
-            image_id = image.split(" - ")[0]
-            image_info = Image.query.filter_by(contributor_id=image_id).first()
-            print(image_info)
-            if image_info: # TODO: Bug: after uploading an Image which has no image_info the next image throws the server
-                # error 0 probably cause the first image never enters this if clause.
-                print(image_info)
-                image_info.path = "uploads/images/" + image
-                db.session.commit()
-                image_infos.append(image_info)
-            else:
-                os.remove('tad_uploader/static/uploads/images/' + image)
-                images = Image.query.all()
-                error = "wrong id"
-                print(error)
-                return render_template('uploader/error.html', images=images, error=error, image_id=image_id)
-            if not image_info.rights:
-                image_info.rights = "Image has no Rights Statement"
-                Image.query.filter_by(contributor_id=image_id).update({'rights': image_info.rights})
-                db.session.commit()
-            if not image_info.title:
-                image_info.title = re.split('; |, |.jpg|.PNG|.png|.JPG|.jpeg', image.split(" - ")[1])[0]
-                Image.query.filter_by(contributor_id=image_id).update({'title': image_info.title})
-                db.session.commit()
-    if request.method == 'POST':
-        f = request.files.get('file')
-        if f.filename.split(" - ")[0].isdigit():
-            f.save(os.path.join('tad_uploader/static/uploads/images', f.filename))
-        else:
-
-            return f"Your image name '{f.filename}' contains no ID. Please name your 'image id - title of image'", 500
+    for image in image_names:
+        image_id = image.split(" - ")[0]
+        image_info = Image.query.filter_by(contributor_id=image_id).first()
+        image_info.path = "uploads/images/" + image
+        db.session.commit()
+        image_infos.append(image_info)
     return render_template('uploader/image_upload.html', image_names=image_names, image_infos=image_infos)
 
 
@@ -190,8 +194,8 @@ api_base_url = "http://test.digitalpreservation.is.ed.ac.uk/"
 endpoint_path = "/rest/login"
 endpoint = "{}{}".format(api_base_url, endpoint_path)
 ds_collection = "b8ef34ee-1b49-460b-8fe4-00a39d9a737d"
-ds_user = "slange@exseed.ed.ac.uk"
-ds_password = "xxx"
+ds_user = ""
+ds_password = ""
 
 login_data = {
     "email": ds_user,
@@ -206,7 +210,7 @@ headers = {
 
 as_base_url = "http://lac-archives-test.is.ed.ac.uk"
 as_user = "admin"
-as_password = "xxx"
+as_password = "t0tt3nh@m"
 as_archival_repo = "18"
 as_url_port = "8089"
 
